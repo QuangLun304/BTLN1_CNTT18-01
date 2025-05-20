@@ -1,5 +1,5 @@
 import json
-data_patch = "dssv.json"
+data_patch = "Final EX\data.json"
 
 
 
@@ -29,12 +29,34 @@ def doc_du_lieu():
     return sinh_vien
 
 
+def them_lop():
+    try:
+        with open(data_patch, 'r', encoding='utf-8') as f:
+            sinh_vien = json.load(f)
+        ma_buoi_hoc = input("Nhập mã buổi học: ").strip()
+    except ValueError:
+        print("Giá trị không hợp lệ.")
+        return
+    buoi_hoc_moi = {
+        ma_buoi_hoc: {
+
+        }
+    }
+    sinh_vien.update(buoi_hoc_moi)
+    with open(data_patch, 'w', encoding='utf-8') as f:
+        json.dump(sinh_vien, f, ensure_ascii=False, indent=4)
+    print("Thêm lớp thành công")
+
 
 
 def them_sinh_vien():
     try:
         with open(data_patch, 'r', encoding='utf-8') as f:
             sinh_vien = json.load(f)
+        ma_buoi_hoc = input("Nhập mã buổi học: ").strip()
+        if ma_buoi_hoc not in sinh_vien:
+            print("Mã buổi học không tồn tại.")
+            return
         ma_sv = input("Nhập mã sinh viên: ").strip()
         ho_ten = input("Nhập họ tên sinh viên: ").strip()
         gioi_tinh = input("Nhập giới tính (Nam/Nữ): ").strip()
@@ -57,7 +79,7 @@ def them_sinh_vien():
             "so_tiet_nghi": so_tiet_nghi
         }
     }
-    sinh_vien.update(sinh_vien_moi)
+    sinh_vien[ma_buoi_hoc].update(sinh_vien_moi)
     with open(data_patch, 'w', encoding='utf-8') as f:
         json.dump(sinh_vien, f, ensure_ascii=False, indent=4)
     print("Thêm sinh viên thành công")
@@ -140,11 +162,12 @@ def xoa_sinh_vien():
 def hien_thi_danh_sach_sinh_vien():
     with open(data_patch, 'r', encoding='utf-8') as f:
         sinh_vien = json.load(f)
-    print(f"===================================================   Danh sách sinh viên lớp   ===================================================")
-    print(f"{'Mã SV':<10} {'Họ tên':<30} {'Ngày sinh':<12} {'Giới tính':<10} {'Địa chỉ':<20} {'Khoa':<15} {'Tình trạng':<12} {'Số tiết nghỉ':<5}")
-    print('-' * 130)
-    for ma_sv, info in sinh_vien.items():
-        print(f"{ma_sv:<10} {info['ho_ten']:<30} {info['ngay_sinh']:<12} {info['gioi_tinh']:<10} {info['dia_chi']:<20} {info['khoa']:<15} {info['tinh_trang']:<12} {info['so_tiet_nghi']:<5}")
+    print(f"|=========================================================   Danh sách sinh viên   =========================================================|")
+    print(f"|{'Mã Học':<10}|{'Mã SV':<10}|{'Họ tên':<30}|{'Ngày sinh':<12}|{'Giới tính':<10}|{'Địa chỉ':<20}|{'Khoa':<15}|{'Tình trạng':<12}|{'Số tiết nghỉ':<12}|")
+    print('-' * 141)
+    for ma_buoi_hoc, danh_sach in sinh_vien.items():
+        for ma_sv, info in danh_sach.items():
+            print(f"|{ma_buoi_hoc:<10}|{ma_sv:<10}|{info['ho_ten']:<30}|{info['ngay_sinh']:<12}|{info['gioi_tinh']:<10}|{info['dia_chi']:<20}|{info['khoa']:<15}|{info['tinh_trang']:<12}|{info['so_tiet_nghi']:<12}|")
 
 
 
@@ -153,12 +176,25 @@ def hien_thi_danh_sach_sinh_vien_theo_lop():
     with open(data_patch, 'r', encoding='utf-8') as f:
         sinh_vien = json.load(f)
     khoa = input("Nhập tên lớp cần hiển thị: ").strip()
-    print(f"===================================================   Danh sách sinh viên lớp   ===================================================")
+    print(f"=====================================================   Danh sách sinh viên   =====================================================")
     print(f"{'Mã SV':<10} {'Họ tên':<30} {'Ngày sinh':<12} {'Giới tính':<10} {'Địa chỉ':<20} {'Khoa':<15} {'Tình trạng':<12} {'Số tiết nghỉ':<5}")
     print('-' * 130)
     for ma_sv, info in sinh_vien.items():
         if info['khoa'] == khoa:
             print(f"{ma_sv:<10} {info['ho_ten']:<30} {info['ngay_sinh']:<12} {info['gioi_tinh']:<10} {info['dia_chi']:<20} {info['khoa']:<15} {info['tinh_trang']:<12} {info['so_tiet_nghi']:<5}")
+
+
+
+def hien_thi_danh_sach_sinh_vien_theo_ma_buoi_hoc():
+    with open(data_patch, 'r', encoding='utf-8') as f:
+        sinh_vien = json.load(f)
+    ma_buoi_hoc = input("Nhập mã buổi học: ").strip()
+    print(f"|=========================================================   Danh sách sinh viên   =========================================================|")
+    print(f"|{'Mã Học':<10}|{'Mã SV':<10}|{'Họ tên':<30}|{'Ngày sinh':<12}|{'Giới tính':<10}|{'Địa chỉ':<20}|{'Khoa':<15}|{'Tình trạng':<12}|{'Số tiết nghỉ':<12}|")
+    print('-' * 141)
+    for ma_sv, info in sinh_vien[ma_buoi_hoc].items():
+        if ma_buoi_hoc in sinh_vien:
+                print(f"|{ma_buoi_hoc:<10}|{ma_sv:<10}|{info['ho_ten']:<30}|{info['ngay_sinh']:<12}|{info['gioi_tinh']:<10}|{info['dia_chi']:<20}|{info['khoa']:<15}|{info['tinh_trang']:<12}|{info['so_tiet_nghi']:<12}|")
 
 
 
@@ -176,6 +212,11 @@ def hien_thi_danh_sach_sinh_vien_theo_tinh_trang():
 
 
 
+def tim_Kiem_sinh_vien_theo_ma_sinh_vien():
+    print()
+
+
+
 if __name__ == "__main__":
     sinh_vien = {}
     while True:
@@ -183,18 +224,20 @@ if __name__ == "__main__":
             ======================== QUẢN LÝ ĐIỂM DANH SINH VIÊN ========================
             1. Kiểm tra tình trạng file data
             2. Đọc dữ liệu từ file
-            3. Thêm sinh viên
-            4. Sửa thông tin sinh viên
-            5. Cập nhập thông tin điểm danh
-            6. Xóa sinh viên
-            7. Hiển thị danh sách sinh viên
-            8. Hiển thị danh sách sinh viên theo lớp
-            9. Hiển thị danh sách sinh viên theo tình trạng điểm danh
-            10. Tìm kiếm sinh viên theo mã sinh viên
-            11. Tìm kiếm sinh viên theo tên
-            12. Hiển thị danh sách sinh viên đang trong tình trạng cấm thi
-            13. Hiển thị danh sách sinh viên theo số tiết nghỉ
-            14. 
+            3. Thêm lớp
+            4. Thêm sinh viên
+            5. Sửa thông tin sinh viên
+            6. Cập nhập thông tin điểm danh
+            7. Xóa sinh viên
+            8. Hiển thị danh sách sinh viên
+            9. Hiển thị danh sách sinh viên theo lớp
+            10. Hiển thị danh sách sinh viên theo mã buổi học
+            11. Hiển thị danh sách sinh viên theo tình trạng điểm danh
+            12. Tìm kiếm sinh viên theo mã sinh viên
+            13. Tìm kiếm sinh viên theo tên
+            14. Hiển thị danh sách sinh viên đang trong tình trạng cấm thi
+            15. Hiển thị danh sách sinh viên theo số tiết nghỉ
+            16. 
             =============================================================================
             """)
         choice = input("Nhập lựa chọn của bạn: ").strip()
@@ -203,16 +246,22 @@ if __name__ == "__main__":
         elif choice == '2':
             sinh_vien = doc_du_lieu()
         elif choice == '3':
-            sinh_vien = them_sinh_vien()
+            sinh_vien = them_lop()
         elif choice == '4':
-            sinh_vien = sua_thong_tin_sinh_vien()
+            sinh_vien = them_sinh_vien()
         elif choice == '5':
-            sinh_vien = cap_nhat_thong_tin_diem_danh()
+            sinh_vien = sua_thong_tin_sinh_vien()
         elif choice == '6':
-            sinh_vien = xoa_sinh_vien()
+            sinh_vien = cap_nhat_thong_tin_diem_danh()
         elif choice == '7':
-            sinh_vien = hien_thi_danh_sach_sinh_vien()
+            sinh_vien = xoa_sinh_vien()
         elif choice == '8':
-            sinh_vien = hien_thi_danh_sach_sinh_vien_theo_lop()
+            sinh_vien = hien_thi_danh_sach_sinh_vien()
         elif choice == '9':
+            sinh_vien = hien_thi_danh_sach_sinh_vien_theo_lop()
+        elif choice == '10':
+            sinh_vien = hien_thi_danh_sach_sinh_vien_theo_ma_buoi_hoc()
+        elif choice == '11':
             sinh_vien = hien_thi_danh_sach_sinh_vien_theo_tinh_trang()
+        elif choice == '12':
+            sinh_vien = tim_Kiem_sinh_vien_theo_ma_sinh_vien()

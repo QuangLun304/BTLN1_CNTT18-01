@@ -1,0 +1,78 @@
+{
+    "MBH01": {
+        "180001": {
+            "ho_ten": "Nguyễn Văn A",
+            "ngay_sinh": "01/01/2000",
+            "gioi_tinh": "Nam",
+            "dia_chi": "Hà Nội",
+            "khoa": "CNTT 18-01",
+            "tinh_trang": "Vắng",
+            "so_tiet_nghi": 4
+        },
+        "180002": {
+            "ho_ten": "Nguyễn Thị A",
+            "ngay_sinh": "01/01/2000",
+            "gioi_tinh": "Nữ",
+            "dia_chi": "Hà Nội",
+            "khoa": "CNTT 18-01",
+            "tinh_trang": "None",
+            "so_tiet_nghi": 0
+        },
+        "180003": {
+            "ho_ten": "Nguyễn Văn B",
+            "ngay_sinh": "01/01/2000",
+            "gioi_tinh": "Nam",
+            "dia_chi": "Hà Nội",
+            "khoa": "CNTT 18-02",
+            "tinh_trang": "None",
+            "so_tiet_nghi": 0
+        },
+        "180004": {
+            "ho_ten": "Nguyễn Văn C",
+            "ngay_sinh": "01/01/2000",
+            "gioi_tinh": "Nam",
+            "dia_chi": "Hà Đông",
+            "khoa": "CNTT 18-01",
+            "tinh_trang": "None",
+            "so_tiet_nghi": 0
+        },
+        "180005": {
+            "ho_ten": "Nguyễn Thị B",
+            "ngay_sinh": "01/01/2000",
+            "gioi_tinh": "Nữ",
+            "dia_chi": "Hưng Yên",
+            "khoa": "CNTT 18-02",
+            "tinh_trang": "None",
+            "so_tiet_nghi": 0
+        },
+        "180006": {
+            "ho_ten": "Trương Triệu Việt Hoàng",
+            "ngay_sinh": "01/01/2000",
+            "gioi_tinh": "Nam",
+            "dia_chi": "Hà Nội",
+            "khoa": "CNTT 18-01",
+            "tinh_trang": "None",
+            "so_tiet_nghi": 0
+        }
+    },
+    "MBH02": {
+        "180007": {
+            "ho_ten": "XD",
+            "ngay_sinh": "01/01/2000",
+            "gioi_tinh": "Nam",
+            "dia_chi": "XD",
+            "khoa": "XD",
+            "tinh_trang": "None",
+            "so_tiet_nghi": 0
+        },
+        "180008": {
+            "ho_ten": "Nguyễn Văn N",
+            "ngay_sinh": "01/01/2000",
+            "gioi_tinh": "Nam",
+            "dia_chi": "Hà Nội",
+            "khoa": "CNTT 18-01",
+            "tinh_trang": "None",
+            "so_tiet_nghi": 0
+        }
+    }
+}
